@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useSearchParams, useRouter } from "next/navigation"
@@ -17,7 +17,8 @@ interface AdminLoginFormValues {
   password: string
 }
 
-export default function AdminLoginPage() {
+// Create a client component to handle search params
+function AdminLoginForm() {
   const { login, isLoading, isAuthenticated, user } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const searchParams = useSearchParams()
@@ -149,5 +150,18 @@ export default function AdminLoginPage() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+// Main page component with Suspense boundary
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#0F172A]">
+        <div className="animate-pulse text-white">Loading...</div>
+      </div>
+    }>
+      <AdminLoginForm />
+    </Suspense>
   )
 } 
