@@ -130,8 +130,8 @@ export default function RegisterPage() {
     authService.register(userData)
       .then(data => {
         console.log('Registration successful:', data);
-        // Redirect to login page after successful registration
-        router.push("/auth/login")
+      // Redirect to login page after successful registration
+      router.push("/auth/login")
       })
       .catch(error => {
         console.error('Registration error:', error);
