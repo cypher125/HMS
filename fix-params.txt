@@ -1,0 +1,21 @@
+To fix the params access error in Next.js routes, I need to:
+
+1. For hostels/[id]/rooms/[roomId]/page.tsx:
+   - Add import * as React from "react" at the top
+   - Change 
+     ```js
+     const hostelId = Number.parseInt(params.id)
+     const roomId = params.roomId
+     ```
+     to:
+     ```js 
+     const unwrappedParams = React.use(params)
+     const hostelId = Number.parseInt(unwrappedParams.id)
+     const roomId = unwrappedParams.roomId
+     ```
+
+2. For application/room/[roomId]/page.tsx and any other route with params:
+   - Add import * as React from "react" at the top
+   - Update direct params access to use React.use(params)
+
+This is needed because in the newer versions of Next.js, the params object is a Promise that must be unwrapped with React.use() before accessing its properties. 

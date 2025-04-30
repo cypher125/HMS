@@ -1,0 +1,8 @@
+import * as React from "react"
+
+export default function HostelRoomsPage({ params }: { params: { id: string } }) {
+  const router = useRouter()
+  const unwrappedParams = React.use(params)
+  const hostelId = Number.parseInt(unwrappedParams.id)
+  const hostel = hostelsData.find((h) => h.id === hostelId)
+} 
